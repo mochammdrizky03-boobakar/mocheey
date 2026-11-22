@@ -1,0 +1,33 @@
+{
+  "id": "./",
+  "name": "Mocheey — Personal Finance",
+  "short_name": "Mocheey",
+  "description": "Catatan dan pengelola keuangan pribadi.",
+  "lang": "id",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#f8f7fb",
+  "theme_color": "#6f49b8",
+  "icons": [
+    {
+      "src": "./icons/mocheey-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icons/mocheey-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icons/mocheey-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

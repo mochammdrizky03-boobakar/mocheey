@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#6f49b8">
+<meta name="description" content="Mocheey — pencatat dan pengelola keuangan pribadi.">
+<meta name="application-name" content="Mocheey">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" href="./icons/mocheey-192.png" type="image/png">
+<link rel="apple-touch-icon" href="./icons/mocheey-192.png">
+<title>Mocheey — Personal Finance</title>
+<style>
+:root{--p:#7048bd;--pd:#50318f;--pl:#f1ebfb;--ink:#251e32;--muted:#82798f;--line:#ece7f2;--bg:#f8f7fb;--green:#16865d;--red:#c34b63;--amber:#a86b13;--shadow:0 8px 28px #35204b0b}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 Inter,system-ui,-apple-system,"Segoe UI",sans-serif}button,input,select{font:inherit}button{cursor:pointer}.wrap{max-width:1180px;margin:auto;padding:27px 22px 55px}
+header{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:24px}.brand{display:flex;gap:11px;align-items:center}.logo{width:44px;height:44px;border-radius:15px;background:linear-gradient(145deg,#9675d4,#56349b);display:grid;place-items:center;color:white;font-size:22px;box-shadow:0 8px 20px #7048bd30}h1{font-size:22px;letter-spacing:-.7px;margin:0}.tag{font-size:11px;color:var(--muted)}.headright{display:flex;align-items:center;gap:9px;flex-wrap:wrap}.today{font-size:12px;color:var(--muted)}
+.btn{border:1px solid var(--line);background:white;color:var(--ink);border-radius:10px;padding:9px 12px;font-weight:650;font-size:12px}.btn:hover{border-color:#c9b8e5;color:var(--pd)}.btn.primary{background:var(--p);color:white;border-color:var(--p)}.btn.primary:hover{background:var(--pd)}.btn.danger{color:var(--red)}
+.hero{border-radius:22px;padding:24px 27px;color:white;background:linear-gradient(115deg,#5d399e,#8862c9);box-shadow:0 14px 30px #6843a526;margin-bottom:16px}.hero-top{display:flex;justify-content:space-between;gap:12px;color:#e9dffc;font-size:12px}.balance{font-size:clamp(30px,6vw,43px);font-weight:760;letter-spacing:-1.5px;margin:7px 0 17px}.hero-stats{display:flex;gap:32px;flex-wrap:wrap}.hero-stats small{display:block;color:#e6dbf8;font-size:11px}.hero-stats b{display:block;margin-top:2px;font-size:14px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}.stat,.panel{background:#fff;border:1px solid var(--line);border-radius:17px;padding:17px;box-shadow:var(--shadow)}.stat-label{font-size:11px;color:var(--muted);display:flex;justify-content:space-between;gap:6px}.ico{background:var(--pl);color:var(--p);width:27px;height:27px;border-radius:9px;display:grid;place-items:center}.stat-value{font-size:20px;font-weight:750;margin-top:8px;letter-spacing:-.4px}.green{color:var(--green)}.red{color:var(--red)}.amber{color:var(--amber)}
+.layout{display:grid;grid-template-columns:340px minmax(0,1fr);gap:15px;align-items:start}.stack{display:grid;gap:15px}.panel h2{font-size:14px;margin:0 0 14px}.panel-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}.panel-head h2{margin:0}
+.switch{display:grid;grid-template-columns:1fr 1fr;background:#f3f0f7;border-radius:10px;padding:4px;margin-bottom:14px}.switch button{border:0;background:none;padding:8px;border-radius:8px;color:var(--muted);font-size:12px;font-weight:700}.switch button.active{background:white;color:var(--pd);box-shadow:0 2px 7px #25143c12}
+.field{margin-bottom:11px}.field label{display:block;font-size:11px;font-weight:650;color:#62596d;margin-bottom:5px}input,select{width:100%;border:1px solid #e7e1ee;border-radius:10px;background:#fff;padding:10px 11px;outline:none;color:var(--ink)}input:focus,select:focus{border-color:#9b7bd0;box-shadow:0 0 0 3px #7048bd16}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:0 9px}.form-actions{display:flex;gap:8px}.form-actions button{flex:1}.hint{font-size:10px;color:var(--muted);margin:9px 0 0}
+.monthbar{display:flex;align-items:center;gap:8px}.monthbar input{width:auto;padding:7px 9px;font-size:12px}
+.chartbox{height:190px;position:relative}.chartbox canvas{width:100%;height:100%;display:block}.legend{display:flex;gap:15px;font-size:10px;color:var(--muted);margin-top:5px}.dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:5px}
+.budgetrow{display:flex;justify-content:space-between;gap:10px;font-size:12px;margin:8px 0}.track{height:8px;background:#f0edf4;border-radius:99px;overflow:hidden}.track span{height:100%;display:block;background:var(--p);border-radius:99px}.budget-note{font-size:10px;color:var(--muted);margin-top:8px}
+.filters{display:flex;gap:7px;flex-wrap:wrap}.filters select,.filters input{width:auto;min-width:110px;padding:8px;font-size:11px}.tablewrap{overflow:auto}table{width:100%;border-collapse:collapse;min-width:620px}th{text-align:left;color:var(--muted);font-size:10px;letter-spacing:.3px;padding:10px 8px;border-bottom:1px solid var(--line)}td{font-size:11px;padding:12px 8px;border-bottom:1px solid #f2eef6}tbody tr:last-child td{border-bottom:0}.desc{font-size:12px;font-weight:700}.subdesc{font-size:10px;color:var(--muted)}.amount{font-weight:750;white-space:nowrap}.pill{display:inline-block;padding:4px 8px;border-radius:30px;font-size:10px;font-weight:700}.paid{background:#e8f6ef;color:var(--green)}.pending{background:#fff2df;color:var(--amber)}.actions{display:flex;gap:5px}.tiny{border:1px solid var(--line);background:#fff;border-radius:7px;padding:5px 7px;font-size:10px;color:#6c6278}.tiny:hover{color:var(--p);border-color:#c9b8e5}.empty{text-align:center;color:var(--muted);padding:25px 8px;font-size:12px}
+.tools{display:flex;gap:7px;flex-wrap:wrap}.foot{text-align:center;color:#a39aaa;font-size:10px;margin-top:18px}
+#toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#2d2340;color:white;padding:10px 15px;border-radius:10px;font-size:12px;opacity:0;pointer-events:none;transition:.2s;z-index:5}#toast.show{opacity:1}
+@media(max-width:850px){.layout{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}}@media(max-width:520px){.wrap{padding:18px 12px 40px}.today{display:none}.hero{padding:21px}.hero-stats{gap:18px}.stats{gap:8px}.stat{padding:13px}.stat-value{font-size:17px}.formgrid{grid-template-columns:1fr}.headright .btn{padding:8px}.panel{padding:14px}}
+@media print{body{background:#fff}.wrap{max-width:none;padding:0}.headright,.entrypanel,.filters,.actions,.tools,.foot,.switch,.hint{display:none!important}.layout{display:block}.panel,.stat,.hero{box-shadow:none;break-inside:avoid}.hero{background:#eee;color:#222;border:1px solid #ddd}.hero-top,.hero-stats small{color:#555}.hero-stats b{color:#222}.stats{grid-template-columns:repeat(4,1fr)}.tablewrap{overflow:visible}table{min-width:0}th,td{font-size:9px;padding:6px 4px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header><div class="brand"><div class="logo">✦</div><div><h1>Mocheey</h1><div class="tag">Personal finance, made clear.</div></div></div><div class="headright"><span class="today" id="today"></span><button class="btn" id="backupBtn">Backup data</button><button class="btn" id="restoreBtn">Import backup</button><input id="restoreFile" type="file" accept="application/json,.json" hidden></div></header>
+<section class="hero"><div class="hero-top"><span>Saldo tersedia</span><span id="selectedMonthLabel">Ringkasan bulan ini</span></div><div class="balance" id="balance">Rp0</div><div class="hero-stats"><div><small>Pemasukan lunas</small><b id="heroIn">Rp0</b></div><div><small>Pengeluaran lunas</small><b id="heroOut">Rp0</b></div><div><small>Piutang belum diterima</small><b id="heroReceivable">Rp0</b></div><div><small>Hutang belum dibayar</small><b id="heroPayable">Rp0</b></div></div></section>
+<section class="stats">
+<div class="stat"><div class="stat-label">Total pemasukan <span class="ico">↗</span></div><div class="stat-value green" id="allIn">Rp0</div></div>
+<div class="stat"><div class="stat-label">Total pengeluaran <span class="ico">↘</span></div><div class="stat-value red" id="allOut">Rp0</div></div>
+<div class="stat"><div class="stat-label">Transaksi tertunda <span class="ico">◷</span></div><div class="stat-value" id="pendingCount">0</div></div>
+<div class="stat"><div class="stat-label">Saldo bersih tercatat <span class="ico">◇</span></div><div class="stat-value" id="netAll">Rp0</div></div>
+</section>
+<div class="layout">
+<aside class="stack">
+<section class="panel entrypanel"><h2 id="formTitle">Tambah transaksi</h2><div class="switch"><button type="button" class="active" data-type="income">＋ Pemasukan</button><button type="button" data-type="expense">－ Pengeluaran</button></div>
+<form id="form"><div class="field"><label for="desc">Keterangan</label><input id="desc" maxlength="80" placeholder="Contoh: Gaji, makan, sewa" required></div>
+<div class="field"><label for="amount">Nominal (Rp)</label><input id="amount" type="number" min="1" step="1" placeholder="Contoh: 250000" required></div>
+<div class="formgrid"><div class="field"><label for="date">Tanggal</label><input id="date" type="date" required></div><div class="field"><label for="category">Kategori</label><input id="category" list="categories" maxlength="40" placeholder="Contoh: Makan"><datalist id="categories"><option>Makan</option><option>Transportasi</option><option>Tempat tinggal</option><option>Tagihan</option><option>Gaji</option><option>Bisnis</option><option>Hiburan</option><option>Kesehatan</option><option>Pendidikan</option><option>Tabungan</option><option>Lainnya</option></datalist></div></div>
+<div class="field"><label for="status">Status pembayaran</label><select id="status"><option value="paid">Lunas</option><option value="pending">Belum lunas</option></select></div>
+<div class="form-actions"><button class="btn primary" id="saveBtn" type="submit">Simpan transaksi</button><button class="btn" id="cancelEdit" type="button" hidden>Batal</button></div></form><p class="hint">Pemasukan belum lunas dihitung sebagai piutang. Pengeluaran belum lunas dihitung sebagai hutang.</p></section>
+<section class="panel"><div class="panel-head"><h2>Anggaran bulanan</h2><span class="tag">Batas pengeluaran</span></div><div class="field"><label for="budgetInput">Anggaran bulan terpilih (Rp)</label><input type="number" id="budgetInput" min="0" step="1000" placeholder="Misal: 3000000"></div><button class="btn primary" id="saveBudget">Simpan anggaran</button><div class="budgetrow"><span>Pengeluaran lunas</span><b id="budgetSpent">Rp0</b></div><div class="track"><span id="budgetBar" style="width:0%"></span></div><div class="budget-note" id="budgetNote">Atur anggaran untuk memantau pengeluaran bulanan.</div></section>
+</aside>
+<main class="stack">
+<section class="panel"><div class="panel-head"><h2>Tren keuangan</h2><div class="monthbar"><input type="month" id="monthPicker" aria-label="Pilih bulan"></div></div><div class="chartbox"><canvas id="chart" width="900" height="300"></canvas></div><div class="legend"><span><i class="dot" style="background:#7048bd"></i>Pemasukan lunas</span><span><i class="dot" style="background:#e28b9d"></i>Pengeluaran lunas</span></div></section>
+<section class="panel"><div class="panel-head"><h2>Riwayat transaksi</h2><div class="tools"><button class="btn" id="csvBtn">Export Excel/CSV</button><button class="btn" id="pdfBtn">Cetak / PDF</button></div></div><div class="filters" style="margin-bottom:12px"><select id="typeFilter"><option value="all">Semua jenis</option><option value="income">Pemasukan</option><option value="expense">Pengeluaran</option></select><select id="statusFilter"><option value="all">Semua status</option><option value="paid">Lunas</option><option value="pending">Belum lunas</option></select><input type="search" id="search" placeholder="Cari keterangan / kategori"></div>
+<div class="tablewrap"><table><thead><tr><th>TRANSAKSI</th><th>TANGGAL</th><th>STATUS</th><th>NOMINAL</th><th>AKSI</th></tr></thead><tbody id="rows"></tbody></table></div><div class="empty" id="empty">Belum ada transaksi untuk pilihan ini.</div></section>
+</main></div>
+<div class="foot">Mocheey menyimpan data di browser perangkat ini. Buat backup secara berkala agar catatan jangka panjang tetap aman.</div>
+</div><div id="toast"></div>
+<script>
+(()=>{
+const KEY="mocheey-finance-v2", $=id=>document.getElementById(id);
+let data=[],kind="income",editing=null;
+const today=new Date(), monthNow=()=>today.getFullYear()+"-"+String(today.getMonth()+1).padStart(2,"0");
+const rupiah=n=>new Intl.NumberFormat("id-ID",{style:"currency",currency:"IDR",maximumFractionDigits:0}).format(n||0);
+const num=a=>a.reduce((s,t)=>s+Number(t.amount||0),0);
+const safe=(v)=>String(v??"");
+function toast(msg){$("toast").textContent=msg;$("toast").classList.add("show");setTimeout(()=>$("toast").classList.remove("show"),2200)}
+function load(){try{let v=JSON.parse(localStorage.getItem(KEY)||"[]");data=Array.isArray(v)?v:[]}catch{data=[]}}
+function persist(){localStorage.setItem(KEY,JSON.stringify(data))}
+function monthData(){let m=$("monthPicker").value;return data.filter(t=>t.date&&t.date.slice(0,7)===m)}
+function monthBudgets(){try{return JSON.parse(localStorage.getItem(KEY+"-budgets")||"{}")}catch{return{}}}
+function setKind(k){kind=k;document.querySelectorAll(".switch button").forEach(b=>b.classList.toggle("active",b.dataset.type===k))}
+document.querySelectorAll(".switch button").forEach(b=>b.addEventListener("click",()=>setKind(b.dataset.type)));
+function resetForm(){editing=null;$("form").reset();$("date").value=today.toISOString().slice(0,10);$("formTitle").textContent="Tambah transaksi";$("saveBtn").textContent="Simpan transaksi";$("cancelEdit").hidden=true;setKind("income")}
+$("cancelEdit").onclick=resetForm;
+$("form").onsubmit=e=>{e.preventDefault();let amount=Number($("amount").value),desc=$("desc").value.trim();if(!desc||!Number.isFinite(amount)||amount<=0){toast("Periksa keterangan dan nominal.");return}
+let item={id:editing||((crypto.randomUUID&&crypto.randomUUID())||String(Date.now())+Math.random()),type:kind,description:desc,amount,date:$("date").value,category:$("category").value.trim()||"Umum",status:$("status").value};
+if(editing){data=data.map(t=>t.id===editing?item:t);toast("Transaksi berhasil diperbarui.")}else{data.unshift(item);toast("Transaksi berhasil disimpan.")}
+persist();resetForm();render()};
+function editItem(id){let t=data.find(x=>x.id===id);if(!t)return;editing=id;kind=t.type;setKind(kind);$("desc").value=t.description;$("amount").value=t.amount;$("date").value=t.date;$("category").value=t.category;$("status").value=t.status;$("formTitle").textContent="Edit transaksi";$("saveBtn").textContent="Simpan perubahan";$("cancelEdit").hidden=false;document.querySelector(".entrypanel").scrollIntoView({behavior:"smooth",block:"start"})}
+function deleteItem(id){if(!confirm("Yakin ingin menghapus transaksi ini?"))return;data=data.filter(t=>t.id!==id);persist();render();toast("Transaksi dihapus.")}
+function drawChart(){
+ const c=$("chart"),ctx=c.getContext("2d"),w=c.width,h=c.height;ctx.clearRect(0,0,w,h);
+ let m=$("monthPicker").value.split("-").map(Number),year=m[0],mon=m[1],days=new Date(year,mon,0).getDate();
+ let inc=Array(days).fill(0),out=Array(days).fill(0);
+ monthData().filter(t=>t.status==="paid").forEach(t=>{let d=Number(t.date.slice(8,10))-1;if(d>=0&&d<days)(t.type==="income"?inc:out)[d]+=Number(t.amount)});
+ let max=Math.max(1,...inc,...out),left=42,right=12,top=15,bottom=32,plotW=w-left-right,plotH=h-top-bottom;
+ ctx.font="16px system-ui";ctx.strokeStyle="#eee9f4";ctx.fillStyle="#8a8195";ctx.lineWidth=1;
+ for(let i=0;i<4;i++){let y=top+i*plotH/3;ctx.beginPath();ctx.moveTo(left,y);ctx.lineTo(w-right,y);ctx.stroke();ctx.fillText(i===0?"maks":i===3?"0":"",5,y+4)}
+ let step=plotW/days,bw=Math.max(2,step*.28);
+ for(let i=0;i<days;i++){let x=left+i*step+step/2;let hi=inc[i]/max*plotH,ho=out[i]/max*plotH;ctx.fillStyle="#7048bd";ctx.fillRect(x-bw-1,top+plotH-hi,bw,hi);ctx.fillStyle="#e28b9d";ctx.fillRect(x+1,top+plotH-ho,bw,ho)}
+ let interval=days>20?5:days>12?3:1;ctx.fillStyle="#8a8195";ctx.font="11px system-ui";for(let d=1;d<=days;d+=interval){let x=left+(d-.5)*step;ctx.fillText(d,x-4,h-9)}
+}
+function render(){
+ let m=monthData(),allIn=data.filter(t=>t.type==="income"),allOut=data.filter(t=>t.type==="expense");
+ let pi=num(m.filter(t=>t.type==="income"&&t.status==="paid")),po=num(m.filter(t=>t.type==="expense"&&t.status==="paid"));
+ let rec=num(m.filter(t=>t.type==="income"&&t.status==="pending")),pay=num(m.filter(t=>t.type==="expense"&&t.status==="pending"));
+ $("balance").textContent=rupiah(pi-po);$("heroIn").textContent=rupiah(pi);$("heroOut").textContent=rupiah(po);$("heroReceivable").textContent=rupiah(rec);$("heroPayable").textContent=rupiah(pay);
+ $("allIn").textContent=rupiah(num(allIn));$("allOut").textContent=rupiah(num(allOut));$("pendingCount").textContent=data.filter(t=>t.status==="pending").length+" transaksi";$("netAll").textContent=rupiah(num(allIn.filter(t=>t.status==="paid"))-num(allOut.filter(t=>t.status==="paid")));
+ let [yy,mm]=$("monthPicker").value.split("-");$("selectedMonthLabel").textContent=new Intl.DateTimeFormat("id-ID",{month:"long",year:"numeric"}).format(new Date(Number(yy),Number(mm)-1,1));
+ let budgets=monthBudgets(),budget=Number(budgets[$("monthPicker").value]||0);$("budgetInput").value=budget||"";$("budgetSpent").textContent=rupiah(po);let pct=budget?Math.min(100,po/budget*100):0;$("budgetBar").style.width=pct+"%";$("budgetBar").style.background=po>budget&&budget?"#c34b63":"#7048bd";$("budgetNote").textContent=budget?(po>budget?"Anggaran terlampaui "+rupiah(po-budget):"Terpakai "+Math.round(pct)+"% · Sisa "+rupiah(budget-po)):"Atur anggaran untuk memantau pengeluaran bulanan.";
+ let ftype=$("typeFilter").value,fstatus=$("statusFilter").value,q=$("search").value.toLowerCase().trim();
+ let shown=[...data].filter(t=>(ftype==="all"||t.type===ftype)&&(fstatus==="all"||t.status===fstatus)&&(!q||(t.description+" "+t.category).toLowerCase().includes(q))).sort((a,b)=>b.date.localeCompare(a.date));
+ $("rows").innerHTML="";$("empty").style.display=shown.length?"none":"block";
+ shown.forEach(t=>{let tr=document.createElement("tr"),td1=document.createElement("td"),d=document.createElement("div"),s=document.createElement("div");d.className="desc";d.textContent=t.description;s.className="subdesc";s.textContent=(t.type==="income"?"Pemasukan":"Pengeluaran")+" · "+(t.category||"Umum");td1.append(d,s);
+ let td2=document.createElement("td");td2.textContent=new Intl.DateTimeFormat("id-ID",{day:"2-digit",month:"short",year:"numeric"}).format(new Date(t.date+"T00:00:00"));
+ let td3=document.createElement("td"),pill=document.createElement("span");pill.className="pill "+(t.status==="paid"?"paid":"pending");pill.textContent=t.status==="paid"?"Lunas":"Belum lunas";td3.append(pill);
+ let td4=document.createElement("td");td4.className="amount "+(t.type==="income"?"green":"red");td4.textContent=(t.type==="income"?"+":"−")+rupiah(t.amount);
+ let td5=document.createElement("td"),acts=document.createElement("div"),edit=document.createElement("button"),del=document.createElement("button");acts.className="actions";edit.className="tiny";edit.textContent="Edit";edit.onclick=()=>editItem(t.id);del.className="tiny";del.textContent="Hapus";del.onclick=()=>deleteItem(t.id);acts.append(edit,del);td5.append(acts);tr.append(td1,td2,td3,td4,td5);$("rows").append(tr)});
+ drawChart();
+}
+["monthPicker","typeFilter","statusFilter"].forEach(id=>$(id).addEventListener("change",render));$("search").addEventListener("input",render);
+$("saveBudget").onclick=()=>{let b=Number($("budgetInput").value);if(!Number.isFinite(b)||b<0){toast("Nominal anggaran tidak valid.");return}let all=monthBudgets();all[$("monthPicker").value]=b;localStorage.setItem(KEY+"-budgets",JSON.stringify(all));render();toast("Anggaran tersimpan.")};
+$("csvBtn").onclick=()=>{let rows=[["Tanggal","Jenis","Keterangan","Kategori","Status","Nominal (IDR)"],...data.map(t=>[t.date,t.type==="income"?"Pemasukan":"Pengeluaran",t.description,t.category||"Umum",t.status==="paid"?"Lunas":"Belum lunas",t.amount])];let csv="\uFEFF"+rows.map(r=>r.map(v=>'"'+String(v??"").replace(/"/g,'""')+'"').join(",")).join("\r\n");let a=document.createElement("a"),url=URL.createObjectURL(new Blob([csv],{type:"text/csv;charset=utf-8;"}));a.href=url;a.download="mocheey-transaksi-"+today.toISOString().slice(0,10)+".csv";a.click();URL.revokeObjectURL(url);toast("File CSV siap dibuka di Excel.")};
+$("pdfBtn").onclick=()=>window.print();
+$("backupBtn").onclick=()=>{let payload={app:"Mocheey",version:2,exportedAt:new Date().toISOString(),transactions:data,budgets:monthBudgets()};let a=document.createElement("a"),url=URL.createObjectURL(new Blob([JSON.stringify(payload,null,2)],{type:"application/json"}));a.href=url;a.download="mocheey-backup-"+today.toISOString().slice(0,10)+".json";a.click();URL.revokeObjectURL(url);toast("Backup berhasil dibuat.")};
+$("restoreBtn").onclick=()=>$("restoreFile").click();
+$("restoreFile").onchange=async e=>{let file=e.target.files[0];if(!file)return;try{let obj=JSON.parse(await file.text()),arr=Array.isArray(obj)?obj:obj.transactions;if(!Array.isArray(arr))throw Error("Format tidak cocok");if(!confirm("Import akan mengganti seluruh transaksi dan anggaran saat ini. Lanjutkan?"))return;data=arr.filter(t=>t&&t.id&&["income","expense"].includes(t.type)&&["paid","pending"].includes(t.status)&&Number(t.amount)>0);persist();if(obj.budgets)localStorage.setItem(KEY+"-budgets",JSON.stringify(obj.budgets));render();toast("Backup berhasil dipulihkan.")}catch(err){alert("File backup tidak valid atau tidak cocok.")}finally{e.target.value=""}};
+$("today").textContent=new Intl.DateTimeFormat("id-ID",{weekday:"long",day:"numeric",month:"long",year:"numeric"}).format(today);$("monthPicker").value=monthNow();$("date").value=today.toISOString().slice(0,10);load();render();
+})();
+</script>
+<script>
+if ("serviceWorker" in navigator && location.protocol.startsWith("http")) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./sw.js").catch(err => console.warn("Service worker registration failed:", err));
+  });
+}
+</script>
+</body></html>
